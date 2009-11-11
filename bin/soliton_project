@@ -1,0 +1,34 @@
+#!/usr/bin/env ruby -KU
+
+$LOAD_PATH.unshift File.expand_path(
+  File.join(
+    File.dirname(__FILE__), '..', 'lib')
+  ) unless
+  $LOAD_PATH.include?(File.join(File.dirname(__FILE__), '..', 'lib')) ||
+  $LOAD_PATH.include?(File.expand_path(
+    File.join(File.dirname(__FILE__), '..', 'lib')
+  )
+)
+
+require 'soliton_project'
+
+print(
+  "For which part of the soliton project would you like to generate data?\n" +
+    "\t1: Soliton propagation\n" +
+    "\t2: Soliton collisions\n" +
+    "\t3: Wave breaking\n" +
+    "\t4: Shock waves\n" +
+    "Enter menu item number: "
+)
+
+controller_class = case gets.chomp
+  when '1' : SolitonProject::PropagationController
+  when '2' : SolitonProject::CollisionController
+  when '3' : SolitonProject::WaveBreakingController
+  when '4' : SolitonProject::ShockWaveController
+  else
+    print("Error: please enter only available menu choices!\n")
+    exit
+end
+
+controller_class.new.run
